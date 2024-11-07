@@ -1,0 +1,202 @@
+<html>
+<head>
+<title>
+new1
+</title>
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+div.scrollmenu
+ {
+  background-color: black;
+  overflow: auto;
+  white-space: pre;
+}
+
+div.scrollmenu a 
+{
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover 
+{
+  background-color:#e37383;
+  color:black;
+}
+
+footer {
+  text-align: center;
+  padding-top: 25px;
+  padding-left: 20px;
+  padding-bottom: 25px;
+  padding-right: 5px;
+  background-color: #e37383;
+  color: Black;
+  border:1px solid black;
+  width:97.9%;
+  font-size: 19px;
+  
+}
+body {
+min-height: 100vh;
+  background-image: url('party.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100%;
+  display: flex;
+    flex-direction: column;
+}
+.expen {
+            font-family: Arial, sans-serif;
+            margin:  30px;
+			padding: 20px 20px 20px;
+        }
+        input, button {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .expense-group {
+            margin-bottom: 15px;
+        }
+        h1{
+            color: white;
+			font-size: 55px;
+        }
+        h3{
+            color: white;
+        }
+        p{
+            color: white;
+        }
+        .button1 {
+  background-color: rgb(199, 195, 195); 
+  color: rgb(8, 8, 8); 
+  transition: 0.5s;
+  border-style: none;
+  border-radius: 3px;
+  
+}
+
+.button1:hover {
+  background-color:#1b1617;
+  ;
+  color: rgb(206, 204, 204);
+}
+
+.animated-text {
+    animation: fadeIn 5s;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+</style>
+ 
+</head>
+<body>
+
+  <div style=";height:100%;width:100%; margin:auto;">
+		         
+				 
+    <div style="border:2px solid #e37383 ;background-color:#E37383;height:20%;width:85%;float:right;">
+    <br><br><center><font face= "Luminari" size=10px> DREAM EVENTS  </font> </CENTER>
+    
+         </div>
+     
+       <div style="border:2px solid black;background-color:black;height:20%;width:25%;">
+				 <img src="de.png" width=57% height=100%>
+     </div>
+  
+				  
+     <div class="scrollmenu"> 
+        <a class="active" href="index.html">                          HOME                                </a><a href="budget.html">                         BUDGET                        </a><a href="aboutus.html">                         ABOUT US                       </a><a href="contact.html">                        CONTACT US                       </a>
+        </div> 
+			<br>
+
+<div class="expen" style="height:auto; margin:auto";><br>
+<center><h1 class="animated-text">Event Budget Calculator</h1></center><br><br>
+    <label for="total-budget">Total Budget:</label><br>
+    <input type="number" id="total-budget" placeholder="Enter your total budget">
+    <br><br><br>
+    <h3>Expenses</h3><br>
+    <font size="5px" color="white">Expense Name includes Decoration, Catering, Entertainment, Venue, photography/videpgraphy etc.
+        <br> 
+        Expense Ammount consist of various packages we offer: VIP package($3000), Premium package($2000), Standard package($1000) and Basic package($500).
+        <br> One can add expenses of their own choices as well. We are always ready to serve our customers!!!
+    </font><br>
+    
+    <div id="expenses">
+        <div class="expense-group">
+            <input type="text" placeholder="Expense Name" class="expense-name"><br>
+            <input type="number" placeholder="Expense Amount" class="expense-amount">
+        </div>
+    </div>
+	<br>
+    <button class="button1" onclick="addExpense()">Add Another Expense</button>
+    <br>
+    <button class="button1" onclick="calculateBudget()">Calculate Remaining Budget</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function addExpense() {
+            const expensesDiv = document.getElementById('expenses');
+            const expenseGroup = document.createElement('div');
+            expenseGroup.classList.add('expense-group');
+            expenseGroup.innerHTML = `
+                <input type="text" placeholder="Expense Name" class="expense-name">
+                <input type="number" placeholder="Expense Amount" class="expense-amount">
+            `;
+            expensesDiv.appendChild(expenseGroup);
+        }
+
+        function calculateBudget() {
+            const totalBudget = parseFloat(document.getElementById('total-budget').value);
+            const expenseInputs = document.querySelectorAll('.expense-group');
+            let totalExpenses = 0;
+
+            expenseInputs.forEach(group => {
+                const expenseAmount = parseFloat(group.querySelector('.expense-amount').value);
+                if (!isNaN(expenseAmount)) {
+                    totalExpenses += expenseAmount;
+                }
+            });
+
+            const remainingBudget = totalBudget - totalExpenses;
+            const resultDiv = document.getElementById('result');
+
+            resultDiv.innerHTML = `<p>Total Budget: $${totalBudget.toFixed(2)}</p>
+                                   <p>Total Expenses: $${totalExpenses.toFixed(2)}</p>
+                                   <p>Remaining Budget: $${remainingBudget.toFixed(2)}</p>`;
+
+            if (remainingBudget < 0) {
+                resultDiv.innerHTML += '<p style="color: red;">You are over budget!</p>';
+            } else if (remainingBudget === 0) {
+                resultDiv.innerHTML += '<p style="color: orange;">You are exactly at your budget limit.</p>';
+            } else {
+                resultDiv.innerHTML += '<p style="color: green;">You have some budget left to allocate!</p>';
+            }
+        }
+    </script></div>
+
+
+<footer>
+ <font color="black"> <p>copyright2023.All rights reserved.<br></font>
+  <a href="#">dreamevents@gmail.com</a></p>
+</footer>
+</div>
+
+</body>
+
+</html>
